@@ -1,0 +1,102 @@
+<<<<<<< .mine
+<head>	<link rel="stylesheet" href="<?php base_url();?>/ci/css/profile.css" type="text/css" media="screen" title="no title" charset="utf-8"></head>
+		 <?php 
+		 if($this->session->flashdata('upload_error')){
+		 ?> 
+		 <body onload="showPicturePopup()"> 	</body>
+		 <?php 
+		 } 
+		 ?>
+=======
+ <?php 
+ if($this->session->flashdata('upload_error')){
+ ?> 
+ <body onload="showPicturePopup()"> 	</body>
+ <?php 
+ } 
+ ?>
+>>>>>>> .r8694
+
+<div id="profile_container">
+	<?php foreach($profile as $p) : ?>
+		<div class="content">
+			<img src="<?php echo  base_url().$p->user_pic_path;?> " width="160" border="0" class="user_img" />
+			<div class="user_name"> <?php echo $p->username; ?></div>
+			<form>
+				<table width="160px" border="0" cellspacing="3">
+					<tr>
+						<td><strong>Email: </strong><label><?php echo $p->mail ?></label></td>
+						<td><input name="Edit" type="image" src="<?php base_url();?>/ci/images/edit_icon.png" border="0" class="edit_icon" /></td>
+					</tr>
+					<tr>
+						<td><strong>Lösenord: </strong><label>******</label></td>
+						<td><input name="Edit" type="image" src="<?php base_url();?>/ci/images/edit_icon.png" border="0" class="edit_icon" /></td>
+					</tr>
+				</table>      
+		  </form>
+
+
+		<?php  
+
+		// visar ändra bild, radera bild och radera konto om det är användarens konto -->
+
+		if ($this->session->userdata('userID')==$p->userID) { ?>
+
+		<input name="change_pic" type="button"  Value="Ändra bild" class="Knapp"  onclick = "showPicturePopup()" />
+		<input name="remove_pic" type="button" Value="Ta bort bild" class="Knapp"  />
+		<input name="Radera konto" type="button" Value="Radera Konto" class="Knapp" />
+		  
+
+		<?php }
+
+	   // visar lägg till vän och ta bort vänd om det inte är användarens konto 
+
+		else{ ?>
+			<input name="Lägg till vän" type="button" class="Knapp" Value="Lägg till vän">
+			<input name="Ta bort vän" type="button" class="Knapp" Value="Ta bort vän">
+			<?php } ?>
+
+		</form>
+		</div>
+	<?php endforeach; ?>
+</div> 
+    
+		
+
+	
+	<!--popup börjar här-->
+<div id="popupPicture">  
+	<a id="popupPictureClose">x</a>    
+	<p id="pictureArea">  
+	<!-- p har ingen slut tagg -->
+
+	</p>
+	
+	  
+  	<tabel with="260" border="1" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+			<onload="cangeScreenSize(200,300)">
+			<h3 align="center">Ladda upp en profilbild</h3>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<form>
+				<!---Ladda upp bild---->
+				<?php echo $this->session->flashdata('upload_error');?>
+				<?php echo  'Välj en bildfild med filändelsen .jpg, .png eller .gif. Bilden får vara max 1 mb stor och inte större än 1024x768 pixlar';?>
+				<?php echo form_open_multipart('site/do_upload');?>
+
+				<input type="file" name="userfile" size="20" />
+
+				<br /><br />
+
+				<input type="submit" value="upload" />
+			</form>
+		</td>
+	</tr>
+	</tabel>
+</div>  
+<div id="backgroundPicturePopup"></div> 
+

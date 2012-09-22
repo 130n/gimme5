@@ -1,0 +1,312 @@
+﻿<div id="feed_container">
+    <div class="clearfix">
+        <!--  -->
+        <div class="content">
+			<!-- hämtar rubriken för listorna -->
+            <h1><?php 
+                if($from){ 
+                    echo $rubrik.": Sida ".$from; 
+                }
+                else if($from=='0'){
+                    echo $rubrik;
+                }?>
+            </h1>
+            <?php
+            /*
+             * ifall det inte kom några listor ur databasen
+             */
+            if (!$row) {
+                echo $empty.'<br><br>';
+                $to = $from-1;
+                if($from){
+                    echo anchor('site/'.$older.'/'.$to, 'Visa nyare listor');
+                }
+            }
+            /*
+             * annars: skriv ut de listor hämtats
+             */ 
+            else {
+                $nr = 0;
+                foreach ($row as $r) :
+
+                    $list_id = $r->listID;
+                    $nr += 1;
+                    $data['url'] = current_url();
+                    ?>
+                    <div class="list">
+                        <!-- Användarnamn och bild -->
+                        <div class="user_info">
+                            <?php
+                            $space_x = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x';
+                            $image = base_url().$r->user_pic_path;
+                            // $site='site/user?userID='.$r->userID;
+                            echo anchor('site/user/' . $r->userID, '<img src="' . $image . '">');
+                            // echo '<a href="'.$site.'"><img src="'.$image.'"></a>';
+                            echo anchor('site/user/' . $r->userID, $r->userName);
+                            ?>
+
+
+
+                        </div>
+                        <!-- Listans rubrik -->
+                        <div class="list_header">
+                            <div> <?php echo $r->title; ?> </div>
+                        </div>
+                        <!-- Listan -->
+                        <div class="list_items">
+                            <div style="cursor: pointer;"
+								 <?php if ($r->userName == $this->session->userdata('username')) {?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de1); ?>' , CAPTION, '<?php echo $r->p1; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" onclick="this.style.background='lightblue'; nd(); return overlib('<div><form action=\'<?php echo site_url('create_list/update_description')?>\' method=\'post\' id =\'create_description\'><a value=\'close\' onclick=\'nd()\'><?php echo $space_x; ?></a><textarea name=\'description1\' rows=\'4\' cols=\'78\' id=\'description\' maxlength=\'300\' size=\'150\' style=\'width:85%; height:70px\' class=\'create_list\'><?php echo htmlspecialchars($r->de1); ?></textarea><input type=\'hidden\' name=\'da_rank\' value=\'<?php  echo '1'; ?>\' /><input type=\'hidden\' name=\'listans_id\' value=\'<?php  echo $list_id ?>\' /><input type=\'submit\' name=\'save_description\' id = \'save_description\' value=\'Spara och stäng\' onclick=\'nd();\'/></form></div>', FULLHTML,  BACKGROUND, '<?php echo base_url('/images/popup_description4.gif'); ?>', CENTER, STICKY, OFFSETX -10, OFFSETY, 3);"/>1. <?php echo $r->p1; ?>
+								 <?php } 
+									   else { ?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de1); ?>' , CAPTION, '<?php echo $r->p1; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" >1. <?php echo $r->p1; ?>
+								 <?php } ?>
+                            </div>
+                            <div style="cursor: pointer;" 
+                                 <?php if ($r->userName == $this->session->userdata('username')) {?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de2); ?>' , CAPTION, '<?php echo $r->p2; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" onclick="this.style.background='lightblue'; nd(); return overlib('<div><form action=\'<?php echo site_url('create_list/update_description')?>\' method=\'post\' id =\'create_description\'><a value=\'close\' onclick=\'nd()\'><?php echo $space_x; ?> </a><textarea name=\'description2\' rows=\'4\' cols=\'78\' id=\'description\' maxlength=\'300\' size=\'150\' style=\'width:85%; height:70px\' class=\'create_list\'><?php echo htmlspecialchars($r->de2); ?></textarea><input type=\'hidden\' name=\'da_rank\' value=\'<?php  echo '2'; ?>\' /><input type=\'hidden\' name=\'listans_id\' value=\'<?php  echo $list_id ?>\' /><input type=\'submit\' name=\'save_description\' id = \'save_description\' value=\'Spara och stäng\' onclick=\'nd();\'/></form></div>', FULLHTML,  BACKGROUND, '<?php echo base_url('/images/popup_description4.gif'); ?>', CENTER, STICKY, OFFSETX -10, OFFSETY, 3);"/>2. <?php echo $r->p2; ?>
+								 <?php } 
+									   else { ?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de2); ?>' , CAPTION, '<?php echo $r->p2; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" >2. <?php echo $r->p2; ?>
+								 <?php } ?>
+                            </div>
+                            <div style="cursor: pointer;" 
+                                 <?php if ($r->userName == $this->session->userdata('username')) {?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de3); ?>' , CAPTION, '<?php echo $r->p3; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" onclick="this.style.background='lightblue'; nd(); return overlib('<div><form action=\'<?php echo site_url('create_list/update_description')?>\' method=\'post\' id =\'create_description\'><a value=\'close\' onclick=\'nd()\'><?php echo $space_x; ?> </a><textarea name=\'description3\' rows=\'4\' cols=\'78\' id=\'description\' maxlength=\'300\' size=\'150\' style=\'width:85%; height:70px\' class=\'create_list\'><?php echo htmlspecialchars($r->de3); ?></textarea><input type=\'hidden\' name=\'da_rank\' value=\'<?php  echo '3'; ?>\' /><input type=\'hidden\' name=\'listans_id\' value=\'<?php  echo $list_id ?>\' /><input type=\'submit\' name=\'save_description\' id = \'save_description\' value=\'Spara och stäng\' onclick=\'nd();\'/></form></div>', FULLHTML,  BACKGROUND, '<?php echo base_url('/images/popup_description4.gif'); ?>', CENTER, STICKY, OFFSETX -10, OFFSETY, 3);"/>3. <?php echo $r->p3; ?>
+								 <?php } 
+									   else { ?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de3); ?>' , CAPTION, '<?php echo $r->p3; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" >3. <?php echo $r->p3; ?>
+								 <?php } ?>
+                            </div>
+                            <div style="cursor: pointer;" 
+                                 <?php if ($r->userName == $this->session->userdata('username')) {?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de4); ?>' , CAPTION, '<?php echo $r->p4; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" onclick="this.style.background='lightblue'; nd(); return overlib('<div><form action=\'<?php echo site_url('create_list/update_description')?>\' method=\'post\' id =\'create_description\'><a value=\'close\' onclick=\'nd()\'><?php echo $space_x; ?> </a><textarea name=\'description4\' rows=\'4\' cols=\'78\' id=\'description\' maxlength=\'300\' size=\'150\' style=\'width:85%; height:70px\' class=\'create_list\'><?php echo htmlspecialchars($r->de4); ?></textarea><input type=\'hidden\' name=\'da_rank\' value=\'<?php  echo '4'; ?>\' /><input type=\'hidden\' name=\'listans_id\' value=\'<?php  echo $list_id ?>\' /><input type=\'submit\' name=\'save_description\' id = \'save_description\' value=\'Spara och stäng\' onclick=\'nd();\'/></form></div>', FULLHTML,  BACKGROUND, '<?php echo base_url('/images/popup_description4.gif'); ?>', CENTER, STICKY, OFFSETX -10, OFFSETY, 3);"/>4. <?php echo $r->p4; ?>
+								 <?php } 
+									   else { ?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de4); ?>' , CAPTION, '<?php echo $r->p4; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" >4. <?php echo $r->p4; ?>
+								 <?php } ?>
+                            </div>
+                            <div style="cursor: pointer;" 
+                                 <?php if ($r->userName == $this->session->userdata('username')) {?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de5); ?>' , CAPTION, '<?php echo $r->p5; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" onclick="this.style.background='lightblue'; nd(); return overlib('<div><form action=\'<?php echo site_url('create_list/update_description')?>\' method=\'post\' id =\'create_description\'><a value=\'close\' onclick=\'nd()\'><?php echo $space_x; ?> </a><textarea name=\'description5\' rows=\'4\' cols=\'78\' id=\'description\' maxlength=\'300\' size=\'150\' style=\'width:85%; height:70px\' class=\'create_list\'><?php echo htmlspecialchars($r->de5); ?></textarea><input type=\'hidden\' name=\'da_rank\' value=\'<?php  echo '5'; ?>\' /><input type=\'hidden\' name=\'listans_id\' value=\'<?php  echo $list_id ?>\' /><input type=\'submit\' name=\'save_description\' id = \'save_description\' value=\'Spara och stäng\' onclick=\'nd();\'/></form></div>', FULLHTML,  BACKGROUND, '<?php echo base_url('/images/popup_description4.gif'); ?>', CENTER, STICKY, OFFSETX -10, OFFSETY, 3);"/>5. <?php echo $r->p5; ?>
+								 <?php } 
+									   else { ?>
+									onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de5); ?>' , CAPTION, '<?php echo $r->p5; ?>', BGCOLOR, '#0c8eb8');" 
+									onmouseout="this.style.background='';return nd();" >5. <?php echo $r->p5; ?>
+								 <?php } ?>
+                            </div>
+
+                            <!-- Timestamp -->
+                            <div class="list_footer">
+                                <?php echo $r->time; ?>
+
+                                <strong><?php echo $r->category; ?></strong>
+
+                                <!-- Kommentarer och likes  -->
+                                <div class="right">
+                                    <ul>
+                                        <li class=<?php echo "slideComment" . $nr; ?>>Kommentarer (<strong><?php
+                        $number_of_comments = 0;
+                        if ($comment) {
+                            // en loop som går igenom alla kommerntarer och ökar number_of_comments om kommentaren och listan har samma id. s
+
+                            foreach ($comment as $c):
+                                if ($c->list == $r->listID) {
+                                    $number_of_comments +=1;
+                                }
+                            endforeach;
+                        }
+
+
+                    echo $number_of_comments ?>
+                    </strong>)</li>
+
+                    <?php
+
+                    $like_show=false;
+
+                   // det finns likes för listorna som visas
+                    if ($like) {
+                            foreach ($like as $l):
+                               
+                               // går igenom likes för att kolla om något tillhör listan
+                                if ($l->listID==$r->listID){
+                                ?>
+
+                                <li> 
+									<?php 
+									if($this->session->userdata('userID') == NULL) {
+										?>
+										<a  onClick="showPopup(); window.scrollTo(0,0);"><FONT COLOR="blue"><?php echo $l->likes. ' Likes' ?></FONT></a>
+										<?php
+									}
+									else {
+										echo anchor('site/like_toggle/' . $r->listID.'?url='.current_url(), $l->likes. ' Likes') ; 
+									} ?>
+								</li>
+                               <?php 
+
+                                $like_show=true;} 
+                            endforeach; 
+
+                            // det finns inga likes för listan visa "Like"
+                            if(!$like_show) {
+								if($this->session->userdata('userID') == NULL) {
+									?>
+									<a  onClick="showPopup(); window.scrollTo(0,0);"><FONT COLOR="blue">Like</FONT></a>
+									<?php
+									}
+								else {
+									echo anchor('site/like_toggle/' . $r->listID.'?url='.current_url(), ' Like') ; 
+								}?>
+							</li>
+
+                        <?php }
+
+                    }
+                        // det finns inga likes, visa "Like"
+                    else {
+                        ?>
+                          <li> <?php 
+                          if(!$like_show) 
+                            echo anchor('site/like_toggle/' . $r->listID.'?url='.current_url(), ' Like') ; ?></li>
+
+                        <?php }
+
+
+
+                        ?>
+                                    </ul>
+                                </div> 
+
+                            </div>
+
+                            <!-- De dolda kommentarerna -->
+                            <div class=<?php echo "sliding_area" . $nr; ?>>
+                                <!-- loop start -->
+                                <?php
+                                if ($comment) {
+                                    foreach ($comment as $c) :
+                                        if ($c->list == $r->listID) {
+                                            ?>
+                                            <!-- Kommentarsbox -->
+                                            <div class="comment_list">	
+                                                <!-- Anvnamn och bild för kommentar -->
+                                                <div class="comment_info">
+                                                    <img src="<?php echo base_url().$c->user_pic_path; ?>"/>
+                                                    
+                                                    <?php echo $c->username; ?>
+                                                    
+                                                </div>	
+                                                <!-- kommentar -->
+                                                <div class="list_items">
+
+                                                    <?php echo $c->text; ?>
+                                                   
+                                                </div>
+                                                <!-- timestamp för kommentar -->
+                                                <div class="list_footer">
+                                                    <?php echo $c->time; ?>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        } endforeach;
+                                }
+                                ?>
+                                <!-- loop som skriver ut kommentarer slut -->
+
+
+                                <!-- skriv & posta kommentar -->
+                                <?php
+                                // kollar om användaren är inloggad. om så är fallet så visas kommentarsrutan. 
+                                $member = $this->session->userdata('is_logged_in');
+                                if ($member) {
+                                   
+                                    echo form_open('site/create_comment', '', $data);
+                                    // hidden - vilken lista
+                                    echo '<input type="hidden" name="list_id" value="' . $list_id . '"/>';
+                                    ?>
+                                    <textarea name="comment" rows="4" cols="78" onclick = "clickclear(this, 'Skriv en kommentar här...')",
+									onblur = "clickrecall(this,'Skriv en kommentar här...')">Skriv en kommentar här...</textarea>
+                                    <input id="skicka" type="submit" name="Skicka" value="Skicka">
+                                    </form>
+                                <?php }
+								// om man är utloggad (visa popup när man klickar istället)
+								else {
+									// hidden - vilken lista
+                                    echo '<input type="hidden" name="list_id" value="' . $list_id . '"/>';
+                                    ?>
+                                    <textarea name="comment" rows="4" cols="78" onClick="showPopup(); window.scrollTo(0,0);">Skriv en kommentar här...</textarea>
+                                    <input id="skicka" type="button" name="Skicka" value="Skicka" onClick="showPopup(); window.scrollTo(0,0);">
+								<?php
+								}
+								?>
+								
+								
+								
+								
+                            </div>
+                            <!-- Visa/dölj kommentarer script -->
+
+
+                            <script>
+                                $(<?php echo '"' . ".sliding_area" . $nr . '"' ?>).hide()
+                                $(<?php echo '"' . ".slideComment" . $nr . '"' ?>).click(function () {
+                                    if ($(<?php echo '"' . ".sliding_area" . $nr . '"' ?>).is(":hidden")) {
+                                        $(<?php echo '"' . ".sliding_area" . $nr . '"' ?>).slideDown("slow");
+                                    }
+                                    else {
+                                        $(<?php echo '"' . ".sliding_area" . $nr . '"' ?>).slideUp();
+                                    }
+                                });
+                            </script>
+                            <!-- Deleteknappen -->
+                            <div id="top_right">
+                                <?php
+                                // skapar en dold form som håller koll på UserID. Submit skickar oss till delete_list. Notera form_close() tog 3 timmar att få det att funka... 
+                                if ($r->creator == $this->session->userdata('userID')) {
+                                    $data['url'] = current_url();
+                                    echo form_open('site/delete_list', '', $data);
+                                    echo '<input type="hidden" name="list_id" value="' . $list_id . '"/>';
+                                    echo '<input id="ta_bort_lista" type="submit" name="submit" value="Ta bort lista!" />';
+                                    echo form_close();
+                                }
+                                ?> 
+                            </div>
+                        </div> <!-- list_items -->
+                    </div> <!-- list -->
+
+                <?php endforeach;
+				
+				if(isset($row)){
+					/*
+                    *ingen äldre länk för sök
+                    */
+                    if($older!=='search'){
+                        if($from){
+                            $to = $from-1;
+                            echo anchor('site/'.$older.'/'.$to, 'Visa nyare listor');
+    						$from = $from+1;
+    						echo anchor('site/'.$older.'/'.$from, 'Visa äldre listor');
+    					}
+    					else{
+    						echo anchor('site/'.$older.'/1', 'Visa äldre listor');
+    					}
+                    }
+				}
+
+            }
+            
+            ?>
+        </div> <!-- content -->
+    </div>
+</div>	<!-- feed_container -->

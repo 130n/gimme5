@@ -1,0 +1,55 @@
+
+<div id="signup_view">
+    <h1>SIGN UP</h1>
+	
+	<?php
+	// Kom ihåg det du skrev i fälten vid uppdatering av sidan. 
+	// Första variablen är 'name' andra vad det ska stå, alltså 'value'.
+	$username_field_value = set_value('username', 'username');
+	$email_field_value = set_value('mail', 'email');
+	$pwd_field_value = set_value('pwd', 'password');
+	$pwd2_field_value = set_value('pwd2', 'password');
+	
+	// Lägger in data i arrayer för varje fält på formuläret. Här ingår också koden för att kalla på javascripten.
+	$username_data = array( 'type' => 'text', 'name' => 'username', 'id' => 'username', 'value' => $username_field_value, 'style' => 'width:100%', 'onclick' => "clickclear(this, 'username')", 'onblur' => "clickrecall(this,'username')");
+	$email_data = array( 'type' => 'text', 'name' => 'mail', 'id' => 'mail', 'value' => $email_field_value,'style' => 'width:100%', 'onclick' => "clickclear(this, 'email')", 'onblur' => "clickrecall(this,'email')");
+	$password_data = array( 'type' => 'password', 'name' => 'pwd', 'value' => $pwd_field_value,'style' => 'width:100%', 'onclick' => "clickclear(this, 'password')", 'onblur' => "clickrecall(this,'password')");
+	$password2_data = array( 'type' => 'password', 'name' => 'pwd2', 'value' => $pwd2_field_value,'style' => 'width:100%', 'onclick' => "clickclear(this, 'password')", 'onblur' => "clickrecall(this,'password')");
+	
+	
+    echo form_open('site/create_account');
+	
+	// Lägger in arrayen av data i fältet.
+	echo form_input($username_data);
+	//echo form_error('username', '<label class="error">', '</label>');
+	echo form_error('username');
+	echo form_input($email_data);
+	echo form_error('mail');
+	
+	// Gammal testkod
+    //echo form_input('username', set_value('username', 'username'));
+	//echo form_input('email', set_value('email', 'email'));
+	?>
+	
+	<legend>Password</legend>
+	
+	<?php
+    //echo form_password('password', set_value('password', 'password'));
+	echo form_password($password_data);
+	echo form_error('pwd');
+	?>
+	
+	<legend>Confirm Password</legend>
+	
+	<?php
+	//echo form_password('password2', set_value('password2', 'confirm password'));
+	echo form_password($password2_data);
+	echo form_error('pwd2');
+    echo form_submit('submit','Sign up!');
+    echo anchor('login/index','Back to Login');
+	?>
+	
+	<!--<p id="error_messages"><?//php echo validation_errors('<p class = "error">');?></p>-->
+
+</div>
+	

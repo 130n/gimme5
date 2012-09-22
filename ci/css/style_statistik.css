@@ -1,0 +1,98 @@
+﻿html {
+	background: #e6e6e6;
+	margin: 0;
+	font-size: 11px;  
+	font-family: arial,helvetica, sans-serif; 
+	padding: 0;
+	text-align: center;
+}
+
+h2{
+	color: white;
+	font-family: arial,helvetica, sans-serif; 
+	font-size: 11px; 
+	text-transform: uppercase;
+	padding: 13px;
+}
+
+h3 {
+	margin: 0px;
+	text-transform: uppercase;
+	color: #0985ad;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+p{
+	margin-left: 10px;
+}
+
+#wrapper {
+	width: 1260px;
+	margin: 0 auto 0 auto;
+	height: auto;
+	text-align: left;
+	overflow: auto;
+}
+
+#header {
+	width: 1260px;
+	height: 131px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#header img {
+	margin-left: 10px;
+}
+
+.box {
+	float: left;
+	margin: 10px
+}
+
+.heading {
+	background-color: #434343;
+	width: 610px;
+	height: 40px;
+	margin: auto;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border-bottom: 5px solid #0087bf;
+	box-shadow: 1px 1px 0px #005c81;
+}
+
+.main {
+	background-color: white;
+	width: 610px;
+	height: 300px;
+	margin: 10px auto;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding-top: 5px;
+}
+
+table {
+	margin: auto;
+	margin-top: 10px;
+	border-collapse: collapse;
+	width: 90%;
+	height: 90%;
+	font-size: 20px;
+	font-weight: bold;
+	color: #434343;
+}
+
+table, th, td {
+	border: 1px solid #c1c1c1;
+	padding-left: 10px;
+}
+
+th {
+	text-transform: uppercase;
+}
+
+#visitors_div, #accounts_div {
+	width: 610px; 
+	height: 300px;
+}

@@ -1,0 +1,88 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+#profile_container {
+	background: #FFF;
+	width: 220px;
+	height: auto;
+	min-height: 510px;
+	float: left;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#feed_container {
+	width: 720px;
+	height: auto;
+	float: right;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #FFF;
+	background-image: url(../images/corner_bg.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+}
+#popupPictureClose{
+	float: right;
+}
+.user_img {
+	width: 160px;
+	/*border: 1px solid #CCC;*/
+}
+.content {
+	margin: 30px;
+}
+.user_name {
+	font-size: 16px;
+	color: #0087bf;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.edit_icon {
+	float: right;
+}
+.profile_button {
+	margin-top: 10px;
+}
+ .clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+
+#profile_container input[type=button]{
+	margin: 10px 0px;
+}
+/* har bytt ut innehållet i .Knapp till innehållet i nput[type=submit], input[type=button]. den nya .Knapp ligger hör över.
+.Knapp {
+	width: 160px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #757575;
+	padding: 10px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#f0f0f0 0%,
+		#cccaca);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#f0f0f0),
+		to(#cccaca));
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border: 1px solid #c9c9c9;
+	-moz-box-shadow:
+		0px 0px 0px rgba(000,000,000,0),
+		inset 0px 0px 0px rgba(255,255,255,0);
+	-webkit-box-shadow:
+		0px 0px 0px rgba(000,000,000,0),
+		inset 0px 0px 0px rgba(255,255,255,0);
+	text-shadow:
+		0px 1px 1px rgba(255,255,255,0.6),
+		0px 1px 0px rgba(255,255,255,0.3);
+		
+}*/

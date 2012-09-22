@@ -1,0 +1,76 @@
+﻿<?php
+
+class List_model extends CI_Model{
+
+//h?mtar tid, titel, skaparens id, skaparens namn, listans och alla poster. En lista per rad. 
+	function getAll()
+	{
+		
+		
+		$q=$this->db->query(
+			"SELECT  time, title, creator, userName, listID,
+		    (SELECT post FROM listpost WHERE rank='1' AND list = t1.list) AS p1,
+		    (SELECT post FROM listpost WHERE rank='2' AND list = t1.list) AS p2, 
+		    (SELECT post FROM listpost WHERE rank='3' AND list = t1.list) AS p3,
+		    (SELECT post FROM listpost WHERE rank='4' AND list = t1.list) AS p4,
+		    (SELECT post FROM listpost WHERE rank='5' AND list = t1.list) AS p5,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='1' AND list = t1.list) ) AS de1,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='2' AND list = t1.list) ) AS de2,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='3' AND list = t1.list) ) AS de3,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='4' AND list = t1.list) ) AS de4,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='5' AND list = t1.list) ) AS de5
+			FROM listpost AS t1, list, user, description
+			WHERE t1.list=list.listid
+			AND user.userID=list.creator
+			GROUP BY time
+			ORDER BY time desc;"
+		);
+		
+		if($q->num_rows() > 0){
+			foreach ($q->result() as $row) {
+				$data[]=$row;
+			}
+			return  $data;
+		}
+	}
+
+	// Returnerar en användares listor
+
+		function getProfileLists($userid)
+	{
+		
+		
+		$q=$this->db->query(
+			"SELECT  time, title, creator, userName, listID,
+		    (SELECT post FROM listpost WHERE rank='1' AND list = t1.list) AS p1,
+		    (SELECT post FROM listpost WHERE rank='2' AND list = t1.list) AS p2, 
+		    (SELECT post FROM listpost WHERE rank='3' AND list = t1.list) AS p3,
+		    (SELECT post FROM listpost WHERE rank='4' AND list = t1.list) AS p4,
+		    (SELECT post FROM listpost WHERE rank='5' AND list = t1.list) AS p5,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='1' AND list = t1.list) ) AS de1,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='2' AND list = t1.list) ) AS de2,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='3' AND list = t1.list) ) AS de3,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='4' AND list = t1.list) ) AS de4,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='5' AND list = t1.list) ) AS de5
+			FROM listpost AS t1, list, user, description
+			WHERE t1.list=list.listid
+			AND user.userID=list.creator
+			AND user.userID=".$userid.
+			" GROUP BY time 
+			ORDER BY time desc;");
+		
+		if($q->num_rows() > 0){
+			foreach ($q->result() as $row) {
+				$data[]=$row;
+			}
+			return  $data;
+		}
+		
+
+	}
+		
+
+	
+}
+
+?>

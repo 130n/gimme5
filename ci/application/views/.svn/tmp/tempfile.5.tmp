@@ -1,0 +1,200 @@
+<div id="feed_container">
+    <div class="clearfix">
+        <!--  -->
+        <div class="content" id="page-1">
+            <h1>Senaste listor</h1>
+
+            <?php
+            /*
+             * ifall det inte kom några listor ur databasen
+             */
+            if (!$row) {
+                echo 'det finns inga listor';
+            }
+            /*
+             * annars: skriv ut de listor hämtats
+             */ else {
+                $nr = 0;
+                foreach ($row as $r) :
+                    $list_id = $r->listID;
+                    $nr += 1;
+                    $data['url'] = current_url();
+                    ?>
+                    <div class="list">
+                        <!-- Användarnamn och bild -->
+                        <div class="user_info">
+                            <?php
+                            $image = base_url() . $r->user_pic_path;
+                            // $site='site/user?userID='.$r->userID;
+                            echo anchor('site/user/' . $r->userID, '<img src="' . $image . '">');
+                            // echo '<a href="'.$site.'"><img src="'.$image.'"></a>';
+                            echo anchor('site/user/' . $r->userID, $r->userName);
+                            ?>
+
+
+
+                        </div>
+                        <!-- Listans rubrik -->
+                        <div class="list_header">
+                            <?php echo $r->title; ?>
+                        </div>
+                        <!-- Listan -->
+                        <div class="list_items">
+                            <div style="cursor: pointer;" 
+                                 onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de1); ?>' , CAPTION, '<?php echo $r->p1; ?>', BGCOLOR, '#0c8eb8');" 
+                                 onmouseout="this.style.background='';return nd();" >1. <?php echo $r->p1; ?>
+                            </div>
+                            <div style="cursor: pointer;" 
+                                 onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de2); ?>' , CAPTION, '<?php echo $r->p2; ?>', BGCOLOR, '#0c8eb8');" 
+                                 onmouseout="this.style.background='';return nd();" >2. <?php echo $r->p2; ?>
+                            </div>
+                            <div style="cursor: pointer;" 
+                                 onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de3); ?>' , CAPTION, '<?php echo $r->p3; ?>', BGCOLOR, '#0c8eb8');" 
+                                 onmouseout="this.style.background='';return nd();" >3. <?php echo $r->p3; ?>
+                            </div>
+                            <div style="cursor: pointer;" 
+                                 onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de4); ?>' , CAPTION, '<?php echo $r->p4; ?>', BGCOLOR, '#0c8eb8');" 
+                                 onmouseout="this.style.background='';return nd();" >4. <?php echo $r->p4; ?>
+                            </div>
+                            <div style="cursor: pointer;" 
+                                 onmouseover="this.style.background='lightblue';return overlib('<?php echo htmlspecialchars($r->de5); ?>' , CAPTION, '<?php echo $r->p5; ?>', BGCOLOR, '#0c8eb8');" 
+                                 onmouseout="this.style.background='';return nd();" >5. <?php echo $r->p5; ?>
+                            </div>
+
+                            <!-- Timestamp -->
+                            <div class="list_footer">
+                                <?php echo $r->time; ?>
+
+                                <?php echo $r->category; ?>
+
+                                <!-- Kommentarer och likes  -->
+                                <div class="right">
+                                    <ul>
+                                        <li class=<?php echo "slideComment" . $nr; ?>>Kommentarer (<strong><?php
+                        $number_of_comments = 0;
+                        if ($comment) {
+                            // en loop som går igenom alla kommerntarer och ökar number_of_comments om kommentaren och listan har samma id. s
+
+                            foreach ($comment as $c):
+                                if ($c->list == $r->listID) {
+                                    $number_of_comments +=1;
+                                }
+                            endforeach;
+                        }
+
+
+                        echo $number_of_comments
+                                ?></strong>)</li>
+                                        <li>Likes (<strong>0</strong>)</li>
+                                    </ul>
+                                </div> 
+
+                            </div>
+
+                            <!-- De dolda kommentarerna -->
+                            <div class=<?php echo "sliding_area" . $nr; ?>>
+                                <!-- loop start -->
+                                <?php
+                                if ($comment) {
+                                    foreach ($comment as $c) :
+                                        if ($c->list == $r->listID) {
+                                            ?>
+                                            <!-- Kommentarsbox -->
+                                            <div class="comment_list">	
+                                                <!-- Anvnamn och bild för kommentar -->
+                                                <div class="comment_info">
+                                                    <img src="<?php echo base_url() . $c->user_pic_path; ?>"/>
+                                                    
+                                                    <?php echo $c->username; ?>
+                                                    
+                                                </div>	
+                                                <!-- kommentar -->
+                                                <div class="list_items">
+
+                                                    <?php echo $c->text; ?>
+                                                   
+                                                </div>
+                                                <!-- timestamp för kommentar -->
+                                                <div class="list_footer">
+                                                    <?php echo $c->time; ?>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        } endforeach;
+                                }
+                                ?>
+                                <!-- loop som skriver ut kommentarer slut -->
+
+
+                                <!-- skriv & posta kommentar -->
+                                <?php
+                                // kollar om användaren är inloggad. om så är fallet så visas kommentarsrutan. 
+                                $member = $this->session->userdata('is_logged_in');
+                                if ($member) {
+                                    $data['url'] = current_url();
+
+                                    echo form_open('site/create_comment', '', $data);
+                                    // hidden - vilken lista
+                                    echo '<input type="hidden" name="list_id" value="' . $list_id . '"/>';
+                                    ?>
+                                    <textarea name="comment" rows="4" cols="78">Skriv en kommentar här...</textarea>
+                                    <input type="submit" value="Skicka">
+                                    </form>
+        <?php } ?>
+                            </div>
+                            <!-- Visa/dölj kommentarer script -->
+
+
+                            <script>
+                                $(<?php echo '"' . ".sliding_area" . $nr . '"' ?>).hide()
+                                $(<?php echo '"' . ".slideComment" . $nr . '"' ?>).click(function () {
+                                    if ($(<?php echo '"' . ".sliding_area" . $nr . '"' ?>).is(":hidden")) {
+                                        $(<?php echo '"' . ".sliding_area" . $nr . '"' ?>).slideDown("slow");
+                                    }
+                                    else {
+                                        $(<?php echo '"' . ".sliding_area" . $nr . '"' ?>).slideUp();
+                                    }
+                                });
+                            </script>
+                            <!-- Deleteknappen -->
+                            <div id="top_right">
+                                <?php
+                                // skapar en dold form som håller koll på UserID. Submit skickar oss till delete_list. Notera form_close() tog 3 timmar att få det att funka... 
+                                if ($r->creator == $this->session->userdata('userID')) {
+                                    $data['url'] = current_url();
+                                    echo form_open('site/delete_list', '', $data);
+                                    echo '<input type="hidden" name="list_id" value="' . $list_id . '"/>';
+                                    echo '<input type="submit" name="submit" value="Ta bort lista!" />';
+                                    echo form_close();
+                                }
+                                ?> 
+                            </div>
+                        </div> <!-- list_items -->
+                    </div> <!-- list -->
+
+                <?php endforeach;
+            }
+            if($title ){
+                $from = $from+1;
+                echo anchor('site/older/'.$from, 'Visa äldre listor');
+            }
+            else{
+                echo anchor('site/older/1', 'Visa äldre listor');
+            }
+            ?>
+        </div> <!-- content -->
+		
+		<div class="content" id="page-2">
+    <h2>vänner</h2>
+    <p>Text...</p>
+</div>
+<div class="content" id="page-3">
+    <h2>senast</h2>
+    <p>Text...</p>
+</div>
+<script type="text/javascript" src="<?php base_url(); ?>/ci/js/activatables.js"></script>
+		<script type="text/javascript">
+		activatables('page', ['page-1', 'page-2', 'page-3']);
+		</script>
+    </div>
+</div>	<!-- feed_container -->

@@ -1,0 +1,2 @@
+﻿för att länka in bilder, använd src="<?php base_url(); ?>/ci/images/bild.jpg" ?>
+eventuellt förlängd sökväg ifall ni grupperar bilderna i undermappar

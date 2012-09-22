@@ -1,0 +1,16 @@
+<h1>Listor</h1>
+<?php foreach($row as $r) : ?>
+
+		<div class="list">
+			<h1><?php echo $r->title; ?></h1>
+			<div class="list_items">	
+				<h2><?php echo $r->item1; ?></h2>
+				<h2><?php echo $r->item2; ?></h2>
+				<h2><?php echo $r->item3; ?></h2>
+				<h2><?php echo $r->item4; ?></h2>
+				<h2><?php echo $r->item5; ?></h2>
+			</div>
+		</div>
+	<?php endforeach; ?>
+</div>
+ 

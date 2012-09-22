@@ -1,0 +1,194 @@
+<?php
+// Kommer ihåg det du skrev i fälten vid uppdatering av sidan. 
+// Första variablen är 'name' andra vad det ska stå, alltså 'value'.
+if ($this->session->flashdata('list_validation_errors')) {
+    $title_field_value = $this->session->flashdata('create_list_value_title');
+    $post1_field_value = $this->session->flashdata('create_list_value_post1');
+    $post2_field_value = $this->session->flashdata('create_list_value_post2');
+    $post3_field_value = $this->session->flashdata('create_list_value_post3');
+    $post4_field_value = $this->session->flashdata('create_list_value_post4');
+    $post5_field_value = $this->session->flashdata('create_list_value_post5');
+    $tag_field_value = $this->session->flashdata('create_list_value_tags');
+} else {
+    $title_field_value = set_value('title', 'Skriv din rubrik här');
+    $post1_field_value = set_value('post1', 'Första posten');
+    $post2_field_value = set_value('post2', 'Andra posten');
+    $post3_field_value = set_value('post3', 'Tredje posten');
+    $post4_field_value = set_value('post4', 'Fjärde posten');
+    $post5_field_value = set_value('post5', 'Femte posten');
+    $tag_field_value = set_value('tags', 'Tag, tag, osv');
+}
+
+$tags_data = array(
+    'type' => 'text',
+    'name' => 'tags',
+    'value' => $tag_field_value,
+    'onclick' => "clickclear(this, 'Tags')",
+    'onblur' => "clickrecall(this,'Tags')",
+    'style' => 'width:295px; border: 2px solid #CCC;',
+    'class' => "create_list");
+$title_data = array(
+    'type' => 'text',
+    'name' => 'title',
+    'value' => $title_field_value,
+    'onclick' => "clickclear(this, 'Write your heading here')",
+    'onblur' => "clickrecall(this,'Write your heading here')",
+    'style' => 'width:295px; border: 2px solid #CCC;',
+    'class' => "create_list");
+$post1_data = array(
+    'type' => 'text',
+    'name' => 'post1',
+    'value' => $post1_field_value,
+    'onclick' => "clickclear(this, 'First post')",
+    'onblur' => "clickrecall(this,'First post')",
+    'style' => 'width:270px; border: 2px solid #CCC;',
+    'class' => "create_list");
+$post2_data = array(
+    'type' => 'text',
+    'name' => 'post2',
+    'value' => $post2_field_value,
+    'onclick' => "clickclear(this, 'Second post')",
+    'onblur' => "clickrecall(this,'Second post')",
+    'style' => 'width:270px; border: 2px solid #CCC;',
+    'class' => "create_list");
+$post3_data = array(
+    'type' => 'text',
+    'name' => 'post3',
+    'value' => $post3_field_value,
+    'onclick' => "clickclear(this, 'Third post')",
+    'onblur' => "clickrecall(this,'Third post')",
+    'style' => 'width:270px; border: 2px solid #CCC;',
+    'class' => "create_list");
+$post4_data = array(
+    'type' => 'text',
+    'name' => 'post4',
+    'value' => $post4_field_value,
+    'onclick' => "clickclear(this, 'Fourth post')",
+    'onblur' => "clickrecall(this,'Fourth post')",
+    'style' => 'width:270px; border: 2px solid #CCC;',
+    'class' => "create_list");
+$post5_data = array(
+    'type' => 'text',
+    'name' => 'post5',
+    'value' => $post5_field_value,
+    'onclick' => "clickclear(this, 'Fifth post')",
+    'onblur' => "clickrecall(this,'Fifth post')",
+    'style' => 'width:270px; border: 2px solid #CCC;',
+    'class' => "create_list");
+?>
+<div id="container_wide">
+    <div class="content">
+        <div id="list_box_content">
+            <div class="small_content">
+                <!--<form action="create_list/make_list" method ="post"> <!-Ändra om det behövs!-->
+
+                <h1>Skapa en lista</h1>
+
+                <?php
+                echo form_open('create_list/make_list');
+                // echo $this->session->flashdata('list_validation_errors');
+                echo form_input($title_data);
+                echo $this->session->flashdata('create_list_error_title');
+                ?>
+
+                <img src="<?php base_url(); ?>/ci/images/comment_add.png" border="0" width="24px" height="24px" style="cursor: pointer;" 
+                     onclick="this.style.background='lightblue'; nd(); return overlib(
+                                                <div><br></br><br></br><center>
+                     <?php echo "<input type='text' name='description1' value='Skriv din beskrivning här'  maxlength='300' size='200' style='width:80%; height:50px' rows='5' cols='20' />" ?></center><br></br><br></br><br></br>
+                                                </div>, FULLHTML,  BACKGROUND, '<?php base_url(); ?>/ci/images/popup.gif', FIXX, 830, FIXY, 313);" 
+                     onmouseout="this.style.background='';"/>
+                <ol>
+                    <li> 
+                        <?php
+                        echo form_input($post1_data);
+                        echo $this->session->flashdata('create_list_error_post1');
+                        ?> 
+                        <img src="<?php base_url(); ?>/ci/images/comment_add.png" border="0" width="24px" height="24px" style="cursor: pointer;" 
+                             onclick="this.style.background='lightblue'; nd(); return overlib(
+                                                <div><br></br><br></br><center>
+                             <?php echo "<input type='text' name='titledescription' value='Skriv din beskrivning här'  maxlength='300' size='200' style='width:80%; height:50px' rows='5' cols='20' />" ?></center><br></br><br></br><br></br>
+                                                </div>, FULLHTML,  BACKGROUND, '<?php base_url(); ?>/ci/images/popup.gif', FIXX, 830, FIXY, 379);" 
+                             onmouseout="this.style.background='';"/>
+                    </li>
+                    <li> 
+                        <?php
+                        echo form_input($post2_data);
+                        echo $this->session->flashdata('create_list_error_post2');
+                        ?> 
+                        <img src="<?php base_url(); ?>/ci/images/comment_add.png" border="0" width="24px" height="24px" style="cursor: pointer;" 
+                             onclick="this.style.background='lightblue'; nd(); return overlib(
+                                                <div><br></br><br></br><center>
+                             <?php echo "<input type='text' name='description2' value='Skriv din beskrivning här'  maxlength='300' size='200' style='width:80%; height:50px' rows='5' cols='20' />" ?></center><br></br><br></br><br></br>
+                                                </div>, FULLHTML,  BACKGROUND, '<?php base_url(); ?>/ci/images/popup.gif', FIXX, 830, FIXY, 439);" 
+                             onmouseout="this.style.background='';"/>
+                    </li>
+                    <li>
+                        <?php
+                        echo form_input($post3_data);
+                        echo $this->session->flashdata('create_list_error_post3');
+                        ?> 
+                        <img src="<?php base_url(); ?>/ci/images/comment_add.png" border="0" width="24px" height="24px" style="cursor: pointer;" 
+                             onclick="this.style.background='lightblue'; nd(); return overlib(
+                                                <div><br></br><br></br><center>
+                             <?php echo "<input type='text' name='description3' value='Skriv din beskrivning här'  maxlength='300' size='200' style='width:80%; height:50px' rows='5' cols='20' />" ?></center><br></br><br></br><br></br>
+                                                </div>, FULLHTML,  BACKGROUND, '<?php base_url(); ?>/ci/images/popup.gif', FIXX, 830, FIXY, 500);" 
+                             onmouseout="this.style.background='';"/>
+                    </li>
+                    <li> 
+                        <?php
+                        echo form_input($post4_data);
+                        echo $this->session->flashdata('create_list_error_post4');
+                        ?> 
+                        <img src="<?php base_url(); ?>/ci/images/comment_add.png" border="0" width="24px" height="24px" style="cursor: pointer;" 
+                             onclick="this.style.background='lightblue'; nd(); return overlib(
+                                                <div><br></br><br></br><center>
+                             <?php echo "<input type='text' name='description5' value='Skriv din beskrivning här'  maxlength='300' size='200' style='width:80%; height:50px' rows='5' cols='20' />" ?></center><br></br><br></br><br></br>
+                                                </div>, FULLHTML,  BACKGROUND, '<?php base_url(); ?>/ci/images/popup.gif', FIXX, 830, FIXY, 565);" 
+                             onmouseout="this.style.background='';"/>
+                    </li>
+                    <li>
+                        <?php
+                        echo form_input($post5_data);
+                        echo $this->session->flashdata('create_list_error_post5');
+                        ?> 
+                        <img src="<?php base_url(); ?>/ci/images/comment_add.png" border="0" width="24px" height="24px" style="cursor: pointer;" 
+                             onclick="this.style.background='lightblue'; nd(); return overlib(
+                                                <div><br></br><br></br><center>
+                             <?php echo "<input type='text' name='description5' value='Skriv din beskrivning här'  maxlength='300' size='200' style='width:80%; height:50px' rows='5' cols='20' />" ?></center><br></br><br></br><br></br>
+                                                </div>, FULLHTML,  BACKGROUND, '<?php base_url(); ?>/ci/images/popup.gif', FIXX, 830, FIXY, 628);" 
+                             onmouseout="this.style.background='';"/>
+                    </li>
+                </ol>
+<<<<<<< .mine
+<?php
+echo form_dropdown('category', $category, $this->session->flashdata('category_value'));
+echo $this->session->flashdata('create_list_error_category');
+?>
+<h1>Skriv in dina taggar här, separerade med komma:</h1>
+<?php
+echo form_input($tags_data);
+echo $this->session->flashdata('create_list_error_tags');
+=======
+>>>>>>> .r10971
+
+<<<<<<< .mine
+echo form_submit('submit', 'Skapa lista');
+?></div>
+=======
+                <?php
+                //echo form_dropdown('category', $options);
+                echo form_dropdown('category', $category, $this->session->flashdata('category_value'));
+                echo $this->session->flashdata('create_list_error_category');
+                ?>
+                <h2>Skriv in dina taggar här, separerade med komma:</h2>
+                <?php
+                echo form_input($tags_data);
+                echo $this->session->flashdata('create_list_error_tags');
+
+                echo form_submit('submit', 'Skapa lista');
+                ?> 
+            </div>
+>>>>>>> .r10971
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿<!-- före html -->
+<html> 
+    <!-- efter html -->
+    <head>
+        <meta http-equiv="Content-Type" contents="text/html; charset=utf-8">
+        <title><?php echo $title; ?></title>
+        <!-- JAVASCRIPT -->
+        <link rel="stylesheet" href="<?php echo base_url('/css/style.css'); ?>" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="<?php echo base_url('/css/friends.css'); ?>" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="<?php echo base_url('/css/createlist.css'); ?>" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="<?php echo base_url('/css/404.css'); ?>" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="<?php echo base_url('/css/tab_view.css'); ?>" type="text/css" media="screen" title="no title" charset="utf-8">
+        <!-- CSS -->
+        <script type="text/javascript" src="<?php echo base_url('/js/form.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/js/hidden.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/js/jquery.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/js/popup.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/js/global.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/js/maddescript.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/js/overlib/overlib.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/js/overlib/overlib_centerpopup.js'); ?>"></script>
+        <!-- Google analytics tracking code, just for fun -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-31634849-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+    </head>
+    <body>
+        <!-- För popups när man hoovrar -->
+        <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+        <div id="wrapper">

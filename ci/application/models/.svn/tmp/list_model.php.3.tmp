@@ -1,0 +1,128 @@
+﻿<?php
+
+class List_model extends CI_Model{
+
+//h?mtar tid, titel, skaparens id, skaparens namn, listans och alla poster. En lista per rad. 
+	function getAll()
+	{
+		
+		/*
+		* för alla
+		* rad: time, title, creator, userName, listID, p1, p2, p3, p4, p5, de1, de2, de3, de4, de5
+		* ordning: tid, nyast först
+		* antal: ?
+		*/
+		$q=$this->db->query(
+			"SELECT  time, title, creator, userName, listID, userID, user_pic_path, 
+		    (SELECT post FROM listpost WHERE rank='1' AND list = t1.list) AS p1,
+		    (SELECT post FROM listpost WHERE rank='2' AND list = t1.list) AS p2, 
+		    (SELECT post FROM listpost WHERE rank='3' AND list = t1.list) AS p3,
+		    (SELECT post FROM listpost WHERE rank='4' AND list = t1.list) AS p4,
+		    (SELECT post FROM listpost WHERE rank='5' AND list = t1.list) AS p5,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='1' AND list = t1.list) ) AS de1,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='2' AND list = t1.list) ) AS de2,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='3' AND list = t1.list) ) AS de3,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='4' AND list = t1.list) ) AS de4,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='5' AND list = t1.list) ) AS de5
+			FROM listpost AS t1, list, user, description
+			WHERE t1.list=list.listid
+			AND user.userID=list.creator
+			GROUP BY time
+			ORDER BY time desc;"
+		);
+		
+		if($q->num_rows() > 0){
+			foreach ($q->result() as $row) {
+				$data[]=$row;
+			}
+			return  $data;
+		}
+		else{
+			return FALSE;
+		}
+	}
+
+	// Returnerar en användares listor
+
+		function getProfileLists($userid)
+	{
+		
+		/*
+		* för en vald användare
+		* rad: time, title, creator, userName, listID, p1, p2, p3, p4, p5, de1, de2, de3, de4, de5
+		* ordning: tid, nyast först
+		* antal: ?
+		*/
+		$q=$this->db->query(
+			"SELECT  time, title, creator, userName, listID, userID, user_pic_path,
+		    (SELECT post FROM listpost WHERE rank='1' AND list = t1.list) AS p1,
+		    (SELECT post FROM listpost WHERE rank='2' AND list = t1.list) AS p2, 
+		    (SELECT post FROM listpost WHERE rank='3' AND list = t1.list) AS p3,
+		    (SELECT post FROM listpost WHERE rank='4' AND list = t1.list) AS p4,
+		    (SELECT post FROM listpost WHERE rank='5' AND list = t1.list) AS p5,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='1' AND list = t1.list) ) AS de1,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='2' AND list = t1.list) ) AS de2,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='3' AND list = t1.list) ) AS de3,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='4' AND list = t1.list) ) AS de4,
+                    (SELECT description FROM description WHERE descriptionID = (SELECT description FROM listpost WHERE rank='5' AND list = t1.list) ) AS de5
+			FROM listpost AS t1, list, user, description
+			WHERE t1.list=list.listid
+			AND user.userID=list.creator
+			AND user.userID=".$userid.
+			" GROUP BY time 
+			ORDER BY time desc;");
+		
+		if($q->num_rows() > 0){
+			foreach ($q->result() as $row) {
+				$data[]=$row;
+			}
+			return  $data;
+		}
+		else{
+			return FALSE;
+		}
+	}
+
+	/*
+	* Returnerar de kommentarer som finns för listorna som skickas med som argument
+	*/
+	function getComments($data){
+			$row=$data['row'];
+			if($row){
+				//sätts till null för att kunna kolla om det finns kommentarer. Går inte att köra if(!$comments) annars.
+	 			$comments = null;
+				foreach($row as $r) :
+					$q=$this->db->query('
+							SELECT * 
+							FROM comment, user
+							WHERE comment.user=user.userID
+							AND comment.list='.$r->listID.'
+							ORDER BY time desc;');
+				
+					if($q->num_rows() > 0){
+						foreach ($q->result() as $row) {
+
+						$comments[]=$row;
+						}
+					} 
+			
+				endforeach;
+				return $comments;
+			}
+			else
+				return FALSE; 		
+			}
+
+	function createComment($data){
+		/*
+
+		$listID=$_REQUEST['comment'];
+		echo listID;
+		
+		*/
+
+		// gör intenting nu, skall komma 
+	}
+}
+
+?>

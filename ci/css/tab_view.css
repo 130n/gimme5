@@ -1,0 +1,121 @@
+﻿/*
+div.content.inactive {
+	display: none;
+}
+
+ol#toc {
+    height: 2em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ol#toc a {
+    background: #bdf url(tabs.gif);
+    color: #008;
+    display: block;
+    float: left;
+    height: 2em;
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+ol#toc a:hover {
+    background-color: #3af;
+    background-position: 0 -120px;
+}
+
+ol#toc a:hover span {
+    background-position: 100% -120px;
+}
+
+ol#toc li {
+    float: left;
+    margin: 0 1px 0 0;
+}
+
+ol#toc li a.active {
+    background-color: #48f;
+    background-position: 0 -60px;
+    color: #fff;
+    font-weight: bold;
+}
+
+ol#toc li a.active span {
+    background-position: 100% -60px;
+}
+
+ol#toc span {
+    background: url(tabs.gif) 100% 0;
+    display: block;
+    line-height: 2em;
+    padding-right: 10px;
+}
+*/
+#tab{
+	width: 600px;
+}
+#tabs {
+	margin: 0px;
+	padding: 0px;
+	background-color: #e6e6e6;
+}
+
+#tabs:after {
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+
+#tabs li {
+	float: left;	
+	text-align: center;
+	list-style-type: none;
+	display: block;
+	padding:  10px 5px;
+	margin-left: 0px;
+	margin-right: 5px;
+	text-transform: uppercase;
+	color: #a6a6a6;
+	list-style-type: none;
+	display: block;
+	width: auto;
+	height: 15px;
+
+	/* Safari 4+, Chrome 1-9 */
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#e6e6e6)); 
+	/* Safari 5.1+, Mobile Safari, Chrome 10+ */
+   	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6); 
+   	/* Firefox 3.6+ */
+   	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+   	/* IE 10+ */
+   	background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+	/* Opera 11.10+ */
+	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+
+	border-top: 1px solid #a6a6a6;
+	border-left: 1px solid #a6a6a6;
+	border-right: 1px solid #a6a6a6;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+#tabs li:hover {
+    /* Safari 4+, Chrome 1-9 */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#efefef), to(#d5d5d5)); 
+    /* Safari 5.1+, Mobile Safari, Chrome 10+ */
+    background-image: -webkit-linear-gradient(top, #efefef, #d5d5d5); 
+    /* Firefox 3.6+ */
+    background-image: -moz-linear-gradient(top, #efefef, #d5d5d5);
+    /* IE 10+ */
+    background-image: -ms-linear-gradient(top, #efefef, #d5d5d5);
+    /* Opera 11.10+ */
+    background-image: -o-linear-gradient(top, #efefef, #d5d5d5);
+	color: black;
+}
+
+#tabs a {
+	color: black;
+}

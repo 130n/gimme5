@@ -1,0 +1,92 @@
+10
+
+dir
+17325
+svn://svn.dsv.su.se/pvt/proj12/grp01/projekt/ci/system/database/drivers
+svn://svn.dsv.su.se/pvt/proj12
+
+
+
+2012-04-15T21:34:25.421635Z
+1189
+leonh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c6d6cac6-4a49-48d2-8c04-f8e9b5eb9dfd
+
+mssql
+dir
+
+sqlite
+dir
+
+pdo
+dir
+
+oci8
+dir
+
+postgre
+dir
+
+mysql
+dir
+
+odbc
+dir
+
+cubrid
+dir
+
+sqlsrv
+dir
+
+index.html
+file
+
+
+
+
+2011-11-22T15:52:38.000000Z
+0227cfd904e99656279202032b98d4a7
+2012-04-15T21:34:25.421635Z
+1189
+leonh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+114
+
+mysqli
+dir
+

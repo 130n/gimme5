@@ -1,0 +1,68 @@
+﻿<?php
+class Create_list_model extends CI_Model {
+
+    function create_list()
+	{	
+		$new_list_insert_data = array(
+			'title' =>html_escape($this->input->post('title')),
+			'creator' =>$this->session->userdata('userID'),
+			'creator' =>$this->input->post('creator'),
+			'category' =>$this->input->post('category'),
+			);
+		
+		$insert = $this->db->insert('list', $new_list_insert_data);
+		$id = $this->db->insert_id();
+
+		
+		// En array med de poster som användaren angett 
+		$new_list_insert_posts = array(
+			'post1' =>html_escape($this->input->post('post1')),
+			'post2' =>html_escape($this->input->post('post2')),
+			'post3' =>html_escape($this->input->post('post3')),
+			'post4' =>html_escape($this->input->post('post4')),
+			'post5' =>html_escape($this->input->post('post5'))
+			);
+		
+		//post1
+		$q=$this->db->query("INSERT INTO  `".$this->db->database."`.`listpost` (`listpostid` ,`list` ,`post` ,`rank`)
+		VALUES (NULL ,  '{$id}',  '{$new_list_insert_posts['post1']}',1);");
+		
+		//post2
+		$q=$this->db->query("INSERT INTO  `".$this->db->database."`.`listpost` (`listpostid` ,`list` ,`post` ,`rank`)
+		VALUES (NULL ,  '{$id}',  '{$new_list_insert_posts['post2']}',2);");
+		
+		//post3
+		$q=$this->db->query("INSERT INTO  `".$this->db->database."`.`listpost` (`listpostid` ,`list` ,`post` ,`rank`)
+		VALUES (NULL ,  '{$id}',  '{$new_list_insert_posts['post3']}',3);");
+		
+		//post4
+		$q=$this->db->query("INSERT INTO  `".$this->db->database."`.`listpost` (`listpostid` ,`list` ,`post` ,`rank`)
+		VALUES (NULL ,  '{$id}',  '{$new_list_insert_posts['post4']}',4);");
+		
+		
+		//post5
+		$q=$this->db->query("INSERT INTO  `".$this->db->database."`.`listpost` (`listpostid` ,`list` ,`post` ,`rank`)
+		VALUES (NULL ,  '{$id}',  '{$new_list_insert_posts['post5']}',5);");
+		
+		return true;
+		
+		
+	}
+	
+	function get_category_dropdown()
+{
+    $this->db->from('category');
+    $this->db->order_by('catname');
+    $result = $this->db->get();
+    $return = array();
+    if($result->num_rows() > 0){
+            $return[''] = 'please select';
+        foreach($result->result_array() as $row){
+            $return[$row['catname']] = $row['catname'];
+        }
+    }
+    return $return;
+}
+
+}
+?>

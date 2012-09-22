@@ -1,0 +1,41 @@
+﻿google.load("visualization", "1", {packages:["corechart"]});
+
+
+
+google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Månad', 'Användare'],
+        ['Januari',  130],
+        ['Februari',  211],
+        ['Mars',  200],
+        ['April',  245]
+      ]);
+    var options = {
+       
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('accounts_div'));
+    chart.draw(data, options);
+  }
+
+
+google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Månad', 'Besökare', 'Unika Besökare'],
+      ['Januari',  130,      10],
+      ['Februari',  211,      80],
+      ['Mars',  200,       25],
+      ['April',  245,      89]
+    ]);
+    var options = {
+         
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('visitors_div'));
+    chart.draw(data, options);
+  }
+
+
+

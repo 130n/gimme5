@@ -1,0 +1,91 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+#container_wide {
+	background: #FFF url(../images/corner_bg.png) no-repeat;
+	background-position: right top;
+	width: 960px;
+	height: auto;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	position: absolute;
+}
+.content {
+	margin: 30px;
+}
+.friend_container {
+	background: #e6e6e6;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	width: 250px;
+	height: 110px;
+	margin: 10px;
+	display: inline-block;
+	position: relative;
+}/*
+#friend_box_content {
+	background: #e6e6e6;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	width: 250px;
+	height: 110px;
+}*/
+.friend_img {
+	margin: 10px;
+	float: left;
+	border: 0px;
+	width: 50px;
+	height: 50px;
+}
+.user_name {
+	float: rigth;
+	font-size: 12px;
+	color: #0087bf;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.friend_container #Ta_bort{
+	margin: 0px;
+	width: auto;
+	height: 25px;
+	background-color: #ee4444;
+	border-color: #a12e2e;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+.friend_container #neka_knapp{
+	position: absolute;
+	right: 8px;
+	bottom: 10px;
+}
+
+.friend_container #acceptera_knapp{
+	position: absolute;
+	right: 55px;
+	bottom: 10px;
+}
+
+#search_friend{
+	float: left;
+	width: 700px;
+	height: auto;
+	margin-bottom: 5px;
+	margin-left: 10px;
+}
+#search_friend_field{
+	border: 1px solid black;
+}
+#friend_search_button{
+	height: 33px ;
+	width: 33px ;
+	border: 0px ;
+	background:url(../images/search_icon.png) no-repeat;
+	margin: 0px ;
+	padding: 5px ;
+	float: left;
+	margin-left: 10px;
+}

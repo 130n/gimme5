@@ -1,0 +1,28 @@
+<div id="menu">
+    <ul>
+        <li>
+            <?php echo anchor('site','Startsida'); ?>
+        </li>
+        <li>
+            <?php echo anchor('site/create_list','Skapa lista'); ?> 
+        </li>
+        <li>
+            <?php echo anchor('site/profile','Profil'); ?>
+        </li>
+        <li>
+            <?php echo anchor('site/friends','Vänner'); ?>
+        </li>
+	</ul>
+	<div id="logout">
+		<ul>
+			<?php 
+			//Möjlighet att logga ut ifall man är inloggad
+			if($this->session->userdata('is_logged_in')){ ?>
+				<li>
+					<?php echo anchor('membership/logout', 
+					'Logout '.$this->session->userdata('username')); ?>
+				</li>
+			<?php } ?>
+		</ul>
+	</div> 
+</div>

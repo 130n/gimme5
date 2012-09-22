@@ -1,0 +1,194 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+html, body {
+	height: 100%;
+	background: #e6e6e6;
+	margin: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+h2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+
+/********** Allting läggs inom den här div-taggen **********/
+
+#wrapper {
+	width: auto;
+	min-height: 100%;
+}
+
+/********** Längst upp, innehåller logga samt login. **********/
+
+#header {
+	width: 1155px;
+	height: 138px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#login {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	width: 500px;
+	height: auto;
+	margin-top: 70px;
+	float: right;
+}
+
+#logoutbutton{
+	 width: 75px; 
+	 height: 30px;
+	 float: right;	 
+}
+
+.textfield_login {
+	background: url(images/textfield_login.png) no-repeat;
+	width: 198px;
+	height: 27px;
+	border: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	padding-left: 10px;
+}
+.login_button {
+	float: right;
+}
+
+/********** Huvudmenyn **********/
+
+#nav {
+	background: url(images/menu_bg.png) repeat-x;
+	width: 1155px;
+	height: 44px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#nav ul {
+	float: left;
+	height: 44px;
+	padding: 0;
+	display: block;
+	width: auto;
+	list-style-type: none;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	}
+	
+#nav ul li {
+	display: block;
+	float: left;
+	width: 80px;
+	height: 44px;
+	text-align: center;
+	margin-right: 1px;
+	}
+
+#nav ul li a {
+	width: 80px;
+	height: 100%;
+	display: block;
+	color: #CCC;
+	text-decoration: none;
+	padding-top: 12px;
+	}
+#nav ul li a:hover {
+	color: #FFF;
+}
+#nav ul li .active {
+	height: 44px;
+	background-position: center top;
+	background-image: url(images/nav_active_bg.png);
+	background-repeat: no-repeat;
+}
+
+/********** Main som innehåller allt som kommer under huvudmenyn **********/
+
+#main {
+	background: url(images/main_bg.png) repeat-x;
+	overflow: auto;
+	padding-bottom: 150px;
+	width: 1155px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 20px;
+}
+#container_left { /* En container som ser till så att allt som ligger i den här taggen håller sig till vänster. */
+	float: left;
+	width: 800px;
+	background: #FFF;
+	padding: 10px;
+}
+#container_right { /* Samma som ovan fast höger */
+	float: right;
+	width: 320px;
+}
+
+#register { /* Box som innehåller registreringen, ligger i #container_right */
+	background: url(images/reg_bg.png) no-repeat;
+	width: 320px;
+	height: 320px;
+	float: right;
+}
+.textfield_register {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 260px;
+	border: 0px;
+	padding-left: 10px;
+	margin-top: 5px;
+	font-weight: bold;
+	background: url(images/reg_textfield.png) no-repeat;
+}
+#register form {
+	margin-left: 30px;
+}
+#register form .register_button {
+	float: right;
+	margin-right: 30px;
+}
+
+/********** En footer som är placerad längst ner på sidan. **********/
+
+#footer {
+	background: url(images/footer_bg.png) repeat-x;
+	height: 220px;
+	margin-top: -220px;
+	clear: both;
+	position: relative; 
+}
+
+/**********Opera Fix**********/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}
+#bild{
+	background: #d1d1d1;
+	width: 200px;
+	height: 200;
+	float: left;
+	padding: 1px;
+}
+.logout_button {
+	float: right;
+	margin-top: 30px;
+}
+

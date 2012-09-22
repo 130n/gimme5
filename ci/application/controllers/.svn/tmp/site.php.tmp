@@ -1,0 +1,192 @@
+<?php
+
+class Site2 extends CI_Controller{
+	function index(){
+		$this->load->model('list_model');
+		$data['row']=$this->list_model->getAll();
+		$data['title']='Gimmi5: Startpage';
+		
+		$member = $this->session->userdata('is_logged_in');
+
+		$data['member']=$member;
+		$data['username']= $this->session->userdata('username');
+		//styr vilken sort länk som ska visas
+		$data['sort']='popular';
+		$this->load->view('includes/header',$data);
+			$this->load->view('menu/menu_view',$data);
+			if($member)
+			{
+				$this->load->view('user_view',$data);
+			}
+			$this->load->view('list_view', $data);
+			if(!$member){
+				$this->load->view('login_view');
+				// $this->load->view('signup_view');
+			}
+		$this->load->view('includes/footer');
+	}
+    function user_agreement(){
+    	$this->load->view('user_agreement_view');
+    }
+
+    
+
+    function profile(){
+		$data['profile_data'] = $this->session->all_userdata();
+		$this->load->view('profile_view', $data);
+	}
+
+    function create_list(){
+		$data['title']='Gimmi5: Startpage';
+		$this->load->view('includes/header',$data);
+		$this->load->view('create_list_view');
+	}
+
+    function sort($sort){
+		$this->load->model('list_model');
+		//olika queries beroende på sort 
+		if ($sort=='recent') {
+			$data['row']=$this->list_model->getAll();
+	    }
+	    else{
+			$data['row']=$this->list_model->getAll();
+		}
+		$data['sort']=$sort;
+		$data['title']='Gimmi5: '.$sort;
+		// /*stoppa in queryt efter 
+		// listor att visa i feed här*/
+		// $data['feed']='';
+		// //styr vilken sort länk som ska visas
+
+		// $this->load->view('includes/header',$data);
+		// $this->load->view('menu/menu_view',$data);
+		// $this->load->view('login_view');
+		// $this->load->view('signup_view');
+		// $this->load->view('list_view', $data);
+		// $this->load->view('includes/footer',$data);
+	}
+<<<<<<< .mine
+=======
+	 
+  //   function validate_credentials(){
+		// $this->load->library('form_validation');
+		// $this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+		
+		// // Regler login
+		// $data['username_rules'] =$this->form_validation->set_rules(
+		// 	'login_username', 'username', 
+		// 	'trim|required|min_length[4]|max_length[12]|callback_valid_login_check');
+		// $data['password_rules']= $this->form_validation->set_rules(
+		// 	'login_pwd', 'password', 
+		// 	'trim|required|min_length[4]');
+		
+
+		// //utan redirect hamnar man här i site/validate_credentials.
+		// //alternativt skulle man väl kunna passa med
+		// if($this->form_validation->run() == FALSE) // något är fel, ladda om sidan
+		// 	{
+		// 		$this->index();
+		// 		// redirect('site', $data);
+		// 	}
+		// else //Login successful
+		// {
+		// 		$data = array(
+		// 			/** login_username är namnet på formulärfältet
+		// 			* viktigt att vara noga med vilket fält som är vad.
+		// 			*/
+		// 			//'username'=> $this->input->post('login_username'),
+		// 			'is_logged_in' => true
+		// 		);
+		// 		$this->session->set_userdata($data);
+		// 		// $this->index();
+		// 		redirect('site');
+		// }	
+  //   }
+  
+  // länkar till delete_list_model som tar bort en lista
+	function delete_list()
+	{
+	$this->load->model('delete_list_model');
+	
+	$this->delete_list_model->delete_list();
+	redirect('site');						
+				
+ 
+	}
+		
+    function user_agreement(){
+    	$this->load->view('user_agreement_view');
+    }
+
+	// function logout(){  
+	// 		echo 'You are now logged out. Welcome back';
+	// 		$this->session->sess_destroy();  
+	// 		redirect('site');  
+	// } 
+		
+	// function create_account(){
+	// 			$this->load->library('form_validation');
+	// 			$this->form_validation->set_error_delimiters('<span class="error">', '</span>');
+
+	// 			/** Sätter regler för de olika fälten.
+	// 			* Första variablen är 'name'. 
+	// 			* Andra är vad fältet kallas i error-meddelanden. Resten är regler.
+	// 			* Regler create account
+	// 			**/
+	// 			$this->form_validation->set_rules(
+	// 				'username', 'username', 
+	// 				'trim|required|min_length[4]|max_length[12]|is_unique[user.username]');
+	// 			$this->form_validation->set_rules(
+	// 				'pwd', 'password', 
+	// 				'trim|required|min_length[4]');
+	// 			$this->form_validation->set_rules(
+	// 				'mail', 'email', 
+	// 				'trim|required|valid_email|is_unique[user.mail]|max_length[40]');
+	// 			$this->form_validation->set_rules(
+	// 				'pwd2', 'password confirmation', 
+	// 				'trim|required|matches[pwd]');
+	// 			$this->form_validation->set_rules(
+	// 				'agreeCheck', 'Agree to the Terms and Conditions', 'required|isset');
+
+	// 			//set message
+	// 			//$this->form_validation->set_message('min_length', 
+	// 			//'%s måste vara minst 4 tecken långt.');
+				
+	// 			if($this->form_validation->run() == FALSE)
+	// 			{
+	// 				//redirect('login/signup', "error");
+	// 				$this->index();
+	// 				// redirect('site');
+	// 			}
+	// 			else
+	// 			{
+	// 				$this->load->model('login_model');
+	// 				if($query = $this->login_model->create_account() == TRUE)
+	// 					{
+	// 						redirect('site');						
+	// 					}
+	// 				else
+	// 				{
+	// 					$this->index();
+	// 					// redirect('site');
+	// 				}
+	// 			}	
+	// }
+	
+	// public function valid_login_check($str){	
+	// 	$this->load->model('login_model');
+ //        $valid=$this->login_model->validate();
+		
+	// 	if(!$valid)
+	// 	{
+	// 		$this->form_validation->set_message(
+	// 			'valid_login_check', 'Incorrect password or username');
+	// 		return FALSE;
+	// 	}
+	// 	else
+	// 	{
+	// 		return TRUE;
+	// 	}
+	// }
+>>>>>>> .r5157
+}

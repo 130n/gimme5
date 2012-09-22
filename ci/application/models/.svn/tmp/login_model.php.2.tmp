@@ -1,0 +1,44 @@
+﻿<?php
+class Login_model extends CI_Model {
+
+    function validate()
+    {
+        $this->db->where('username',$this->input->post('username'));
+        $this->db->where('password',md5($this->input->post('password')));
+        $query=$this->db->get('user');
+
+        if($query->num_rows == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+	
+	function create_account()
+	{	
+		$username=$_POST['username'];
+		$password=$_POST['password'];
+		
+		$new_account_insert_data = array (
+			'username' =>$this->input->post('username'),
+			'password' =>md5($this->input->post('password'))
+			//'email' =>$this->input->post('email')
+			);
+		
+		$insert = $this->db->insert('user', $new_account_insert_data);
+		return $insert;
+		
+		/*
+		$insert = "INSERT INTO user (username, password) 
+		VALUES ('{$username}', '{$password}')";
+		return $insert;
+		*/
+<<<<<<< .mine
+		// $insert = "INSERT INTO list (username, password)
+        // VALUES ('$username', '$password')";
+=======
+>>>>>>> .r2225
+	}
+}
+?>

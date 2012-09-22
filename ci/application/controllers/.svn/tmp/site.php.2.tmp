@@ -1,0 +1,73 @@
+<?php
+
+class Site extends CI_Controller{
+	function index(){
+		$this->load->model('list_model');
+		$data['row']=$this->list_model->getAll();
+		$data['title']='Gimmi5: Startpage';
+		
+		$member = $this->session->userdata('is_logged_in');
+
+		$data['member']=$member;
+		$data['username']= $this->session->userdata('username');
+		//styr vilken sort länk som ska visas
+		$this->load->view('includes/header',$data);
+			$this->load->view('menu/menu_view',$data);
+			if($member)
+			{
+				$this->load->view('user_view',$data);
+			}
+			$this->load->view('list_view', $data);
+			if(!$member){
+				$this->load->view('login_view');
+			}
+		$this->load->view('includes/footer');
+	}
+    
+    function user_agreement(){
+    	$this->load->view('Anvandaravtal_view');
+    }
+
+    function delete_list()
+	{
+		$this->load->model('delete_list_model');
+		$this->delete_list_model->delete_list();
+		redirect('site');						
+	}
+
+    function profile(){
+		$data['title']='Gimmi5: Profil';
+	    
+	    $this->load->model('list_model');
+		$data['row']=$this->list_model->getAll();
+
+	    $this->load->view('includes/header', $data);
+		//ska vara något från profile_model
+		//även passa in denna data till profile_view
+
+		$data['is_logged_in'] = $this->session->userdata('is_logged_in');
+		$this->load->view('menu/menu_view', $data);
+		$this->load->view('list_view', $data);
+		//här
+		$this->load->view('profile_view', $data);
+		$this->load->view('includes/footer');
+
+	}
+
+	function friends(){
+		$data['profile_data'] = $this->session->all_userdata();
+		$this->load->view('friends_view', $data);
+	}
+
+    function create_list(){
+        $data['title']='Gimmi5: Create a List';
+		$this->load->model('create_list_model');
+		$data['category'] = $this->create_list_model->get_category_dropdown();
+        //$this->load->view('includes/template',$data);
+		$this->load->view('includes/header',$data);
+		$this->load->view('menu/menu_view',$data);	
+		$this->load->model('create_list_model');
+		$this->load->view('create_list_view', $data);
+		$this->load->view('includes/footer',$data);
+	}
+}

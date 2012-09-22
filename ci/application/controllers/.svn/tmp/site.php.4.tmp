@@ -1,0 +1,129 @@
+<?php
+
+class Site extends CI_Controller{
+
+	public function __construct(){
+            parent::__construct();
+            if($this->session->flashdata('visited')){
+        		$this->session->keep_flashdata('visited');
+        	}
+        	else{
+	            $data = array(
+	            	'ip' => $this->session->userdata('ip_address'),
+	            	'userid' => $this->session->userdata('userID')
+	            );
+				$this->db->insert('visit',$data);
+
+        		$this->session->flashdata('visited',TRUE);
+        	}
+	}
+	
+	function index(){
+		$this->load->model('list_model');
+		$data['row']=$this->list_model->getAll();
+		$data['title']='Gimmi5: Startpage';
+		
+		$member = $this->session->userdata('is_logged_in');
+
+		$data['member']=$member;
+		$data['username']= $this->session->userdata('username');
+		//styr vilken sort länk som ska visas
+		$this->load->view('includes/header',$data);
+		$this->load->view('menu/menu_view',$data);
+		$this->load->view('list_view', $data);
+		if(!$member){
+			$this->load->view('login_view');
+		}
+		else{
+			$this->load->view('inloggad_sidebar');
+		}
+		$this->load->view('includes/footer');
+	}
+    
+    function user_agreement(){
+    	$this->load->view('user_agreement_view');
+    }
+
+    function delete_list()
+	{
+		$this->load->model('delete_list_model');
+		$this->delete_list_model->delete_list();
+		redirect('site');					
+	}
+
+    function profile(){
+		if($this->session->userdata('is_logged_in')){
+
+			//den inloggade användaren
+			$userid=$this->session->userdata('userID');
+
+			$data['title']='Gimmi5: Profil';
+		    
+		    $this->load->model('list_model');
+			$data['row']=$this->list_model->getProfileLists($userid);
+			//or die?
+
+			
+			//hämtar profildata för den inloggade användaren från profileModel
+			$this->load->model('profile_model');
+			$data['profile']=$this->profile_model->getProfile($userid);
+
+		    $this->load->view('includes/header', $data);
+			//ska vara något från profile_model
+			//även passa in denna data till profile_view
+
+			$this->load->view('menu/menu_view', $data);
+			$this->load->view('list_view', $data);
+			//här
+			$this->load->view('profile_view', $data);
+			$this->load->view('includes/footer');
+
+
+			// används detta till något?
+			$data['is_logged_in'] = $this->session->userdata('is_logged_in');
+		}
+		else {
+			redirect('site');
+			
+			}
+	}
+	
+
+	function friends(){
+
+		if($this->session->userdata('is_logged_in')){
+			$data['title']='Gimmi5: Vänner';
+			$this->load->model('profile_model');
+			$data['row']=$this->profile_model->getFriends($this->session->userdata('userID'));
+			// $data['row']=$this->profile_model->getFriends();
+
+			$this->load->view('includes/header', $data);
+			$this->load->view('menu/menu_view',$data);	
+			$data['profile_data'] = $this->session->all_userdata();
+			$this->load->view('friend_view', $data);
+			$this->load->view('includes/footer');;
+		}
+		else{
+			redirect('site');
+		}
+	}
+
+	function create_list(){
+		$member = $this->session->userdata('is_logged_in');
+
+		$data['member']=$member;
+		$data['username']= $this->session->userdata('username');
+
+	    $data['title']='Gimmi5: Create a List';
+		$this->load->model('create_list_model');
+		$data['category'] = $this->create_list_model->get_category_dropdown();
+	    //$this->load->view('includes/template',$data);
+		$this->load->view('includes/header',$data);
+		$this->load->view('menu/menu_view',$data);	
+		$this->load->model('create_list_model');
+		$this->load->view('create_list_view', $data);
+		$this->load->view('includes/footer',$data);
+		
+		
+	}
+}

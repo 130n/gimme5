@@ -1,0 +1,154 @@
+
+<?php //login data
+	// Kom ihåg det du skrev i fälten vid uppdatering av sidan. 
+	// Första variablen är 'name' andra vad det ska stå, alltså 'value'.
+	$username_field_value = set_value('login_username', 'username');
+	$pwd_field_value = set_value('login_pwd', 'password');
+	
+	/* Lägger in data i arrayer för varje fält på formuläret. 
+	* Här ingår också koden för att kalla på javascripten.
+	*/
+	$login_username_data = array( 
+		'type' => 'text', 
+		'name' => 'login_username', 
+		'id' => 'username', 
+		'value' => $username_field_value, 
+		'style' => 'width:100%; margin-top: 15px;', 
+		'onclick' => "clickclear(this, 'username')", 
+		'onblur' => "clickrecall(this,'username')");
+	$login_password_data = array( 
+		'type' => 'password', 
+		'name' => 'login_pwd', 
+		'value' => $pwd_field_value,
+		'style' => 'width:100%; margin-top: 15px;', 
+		'onclick' => "clickclear(this, 'password')", 
+		'onblur' => "clickrecall(this,'password')");
+	$hidden_login = array(
+		'url' => current_url()
+		);
+?>
+
+
+
+
+<?php //signup data
+	// Kom ihåg det du skrev i fälten vid uppdatering av sidan. 
+	// Första variablen är 'name' andra vad det ska stå, alltså 'value'.
+	$username_field_value = set_value('username', 'username');
+	$email_field_value = set_value('mail', 'email');
+	$pwd_field_value = set_value('pwd', 'password');
+	$pwd2_field_value = set_value('pwd2', 'password');
+	/** Lägger in data i arrayer för varje fält på formuläret.
+	* Här ingår också koden för att kalla på javascripten.
+	**/
+	$username_data = array( 
+		'type' => 'text', 
+		'name' => 'username', 
+		'id' => 'username', 
+		'value' => $username_field_value, 
+		'style' => 'width:100%; margin-top: 15px;', 
+		'onclick' => "clickclear(this, 'username')", 
+		'onblur' => "clickrecall(this,'username')");
+	$email_data = array( 
+		'type' => 'text', 
+		'name' => 'mail', 
+		'id' => 'mail', 
+		'value' => $email_field_value,
+		'style' => 'width:100%; margin-top: 15px;', 
+		'onclick' => "clickclear(this, 'email')", 
+		'onblur' => "clickrecall(this,'email')");
+	$password_data = array( 
+		'type' => 'password', 
+		'name' => 'pwd', 
+		'value' => $pwd_field_value,
+		'style' => 'width:100%; margin-top: 15px;', 
+		'onclick' => "clickclear(this, 'password')", 
+		'onblur' => "clickrecall(this,'password')");
+	$password2_data = array( 
+		'type' => 'password', 
+		'name' => 'pwd2', 
+		'value' => $pwd2_field_value,
+		'style' => 'width:100%; margin-top: 15px;', 
+		'onclick' => "clickclear(this, 'password')", 
+		'onblur' => "clickrecall(this,'password')");
+	$checkbox_data = array(
+	    'name'        => 'agreeCheck',
+	    'id'          => 'agreeCheck',
+	    'value'       => 'accept',
+	    'checked' => set_checkbox('agreeCheck', 'agree', FALSE)
+    );
+    $hidden_signup = array(
+		'url' => current_url()
+		);
+?>
+
+
+
+
+<!-- login -->
+<div id="login_view">
+<div class="padding">
+    
+<?php
+    $current = current_url();
+    echo form_open('membership/validate_credentials','',$hidden_login);
+    echo form_input($login_username_data);
+    // echo $this->session->flashdata('login_error_username');
+    echo form_password($login_password_data);
+    // echo $this->session->flashdata('login_error_password');
+    /*
+	hämtar flashdata för att visa validation errors vid felaktig inmatning
+    */
+    echo $this->session->flashdata('validation_errors');
+    echo form_submit('submit','Logga in');
+    echo form_close();
+    ?>
+</div>
+</div>
+
+
+
+
+<!-- signup -->
+<div id="signup_view">
+<div class="padding">
+    <?php
+    echo form_open('membership/create_account','',$hidden_signup);
+	// echo $this->session->flashdata('signup_validation_errors');
+	/*
+	*Lägger in arrayen av data i fältet.
+	*/
+	echo form_input($username_data);
+	// echo form_error('username');
+	echo $this->session->flashdata('signup_error_username');
+
+	echo form_input($email_data);
+	// echo form_error('mail');
+	echo $this->session->flashdata('signup_error_email');
+    
+	echo form_password($password_data);
+	// echo form_error('pwd');
+	echo $this->session->flashdata('signup_error_password');
+
+	echo form_password($password2_data);
+	// echo form_error('pwd2');
+	echo $this->session->flashdata('signup_error_password2');
+
+	echo form_checkbox($checkbox_data);
+	echo $this->session->flashdata('signup_error_agreeCheck');
+
+	?>
+	<agree>I have read and accept the</agree>
+    <?php
+    //ge attribut så att den inte ser ut som de andra länkarna
+    echo anchor('site/user_agreement', 'User Agreement');
+    echo form_submit('submit','skapa konto');
+	?>
+	
+	<!--<p id="error_messages"><?php // echo validation_errors('<p class = "error">');?></p>-->
+</div>
+</div>
+	
+
+
+
